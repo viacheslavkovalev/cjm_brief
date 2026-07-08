@@ -7,7 +7,10 @@ export default {
       colors: {
         bg: "#0D1F3C",
         figmaBg: "#0A2341",
-        accent: "#E8412A",
+        page: "#F5F5F5",
+        ink: "#051D34",
+        blueCta: "#0525C6",
+        accent: "#FC5741",
         card: "#162440",
         cardBorder: "#1E3050",
         inputBg: "#0F1C35",

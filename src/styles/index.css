@@ -27,16 +27,16 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #0d1f3c;
-  --color-accent: #e8412a;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a8b4c8;
+  --color-bg: #f5f5f5;
+  --color-accent: #fc5741;
+  --color-text-primary: #051d34;
+  --color-text-secondary: #a4a4a4;
   --color-card: #162440;
   --color-card-border: #1e3050;
   --color-input-bg: #0f1c35;
-  --color-progress: #ffffff;
+  --color-progress: #fc5741;
   color: var(--color-text-primary);
-  background: #0a2341;
+  background: #f5f5f5;
   font-family: "TT Travels Trl", Inter, Arial, sans-serif;
 }
 
@@ -45,14 +45,14 @@
 }
 
 html {
-  background: #0a2341;
+  background: #f5f5f5;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  background: #0a2341;
+  background: #f5f5f5;
 }
 
 button,

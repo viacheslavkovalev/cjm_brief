@@ -12,8 +12,8 @@ export function RadioOption({ option, questionId, checked, onChange }: RadioOpti
 
   return (
     <label
-      className={`flex min-h-[58px] cursor-pointer items-center gap-4 rounded-lg border px-5 py-4 text-left font-travels text-[18px] leading-[1.2] text-figmaBg transition focus-within:ring-2 focus-within:ring-figmaBg/40 ${
-        checked ? "border-figmaBg bg-figmaBg/[0.06]" : "border-figmaBg/25 bg-transparent hover:border-figmaBg/60"
+      className={`flex min-h-[58px] cursor-pointer items-center gap-4 rounded border px-5 py-4 text-left font-travels text-[18px] leading-[1.2] text-ink transition focus-within:ring-2 focus-within:ring-blueCta/30 ${
+        checked ? "border-blueCta bg-blueCta/[0.06]" : "border-ink/20 bg-white hover:border-ink/50"
       }`}
     >
       <input
@@ -26,7 +26,7 @@ export function RadioOption({ option, questionId, checked, onChange }: RadioOpti
       />
       <span
         className={`grid size-[18px] shrink-0 place-items-center rounded border ${
-          checked ? "border-figmaBg bg-figmaBg" : "border-figmaBg/60"
+          checked ? "border-blueCta bg-blueCta" : "border-ink/50"
         }`}
         aria-hidden="true"
       >

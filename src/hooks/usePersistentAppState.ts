@@ -4,24 +4,26 @@ import type { AppState, ResultId, Screen, SubmissionStatus } from "../types";
 import { computeResult } from "../utils/results";
 
 const storageKeys = {
-  version: "bs_version",
-  company: "bs_company",
-  phone: "bs_phone",
-  email: "bs_email",
-  answers: "bs_answers",
-  score: "bs_score",
-  result: "bs_result",
-  submissionId: "bs_submission_id",
-  submissionStatus: "bs_submission_status",
+  version: "cjm_version",
+  name: "cjm_name",
+  company: "cjm_company",
+  position: "cjm_position",
+  phone: "cjm_phone",
+  answers: "cjm_answers",
+  score: "cjm_score",
+  result: "cjm_result",
+  submissionId: "cjm_submission_id",
+  submissionStatus: "cjm_submission_status",
 } as const;
 
-const storageVersion = "3";
+const storageVersion = "1";
 
 const initialState: AppState = {
   screen: "intro",
+  name: "",
   company: "",
+  position: "",
   phone: "",
-  email: "",
   answers: {},
   score: 0,
   result: null,
@@ -45,17 +47,13 @@ function createSubmissionId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
-function getNextScreen(email: string, answers: Record<string, string>, result: ResultId | null): Screen {
+function getNextScreen(answers: Record<string, string>, result: ResultId | null): Screen {
   if (result) {
     return "result";
   }
 
-  if (!email) {
-    return "intro";
-  }
-
   const nextQuestion = questions.find((question) => !answers[question.id]);
-  return nextQuestion?.id ?? "result";
+  return nextQuestion?.id ?? "contact";
 }
 
 function readStoredState(): AppState {
@@ -70,8 +68,9 @@ function readStoredState(): AppState {
       return initialState;
     }
 
-    const email = window.localStorage.getItem(storageKeys.email) ?? "";
+    const name = window.localStorage.getItem(storageKeys.name) ?? "";
     const company = window.localStorage.getItem(storageKeys.company) ?? "";
+    const position = window.localStorage.getItem(storageKeys.position) ?? "";
     const phone = window.localStorage.getItem(storageKeys.phone) ?? "";
     const answers = JSON.parse(window.localStorage.getItem(storageKeys.answers) ?? "{}") as Record<string, string>;
     const storedScore = Number(window.localStorage.getItem(storageKeys.score) ?? "0");
@@ -84,10 +83,11 @@ function readStoredState(): AppState {
     const submissionStatus = result && storedSubmissionStatus === "idle" ? "pending" : storedSubmissionStatus;
 
     return {
-      screen: getNextScreen(email, answers, result),
+      screen: getNextScreen(answers, result),
+      name,
       company,
+      position,
       phone,
-      email,
       answers,
       score,
       result,
@@ -104,9 +104,10 @@ export function usePersistentAppState() {
 
   useEffect(() => {
     window.localStorage.setItem(storageKeys.version, storageVersion);
+    window.localStorage.setItem(storageKeys.name, state.name);
     window.localStorage.setItem(storageKeys.company, state.company);
+    window.localStorage.setItem(storageKeys.position, state.position);
     window.localStorage.setItem(storageKeys.phone, state.phone);
-    window.localStorage.setItem(storageKeys.email, state.email);
     window.localStorage.setItem(storageKeys.answers, JSON.stringify(state.answers));
     window.localStorage.setItem(storageKeys.score, String(state.score));
     window.localStorage.setItem(storageKeys.submissionId, state.submissionId);
@@ -122,16 +123,18 @@ export function usePersistentAppState() {
   const actions = useMemo(
     () => ({
       start() {
-        setState((current) => ({ ...current, screen: "email" }));
+        setState((current) => ({ ...current, screen: "q1" }));
       },
-      submitEmail(contact: { company: string; phone: string; email: string }) {
+      submitContact(contact: { name: string; company: string; position: string; phone: string }) {
         setState((current) => ({
           ...current,
+          name: contact.name,
           company: contact.company,
+          position: contact.position,
           phone: contact.phone,
-          email: contact.email,
-          screen: "q1",
-          submissionId: createSubmissionId(),
+          result: computeResult(current.score),
+          screen: "result",
+          submissionId: current.submissionId || createSubmissionId(),
           submissionStatus: "pending",
         }));
       },
@@ -153,10 +156,7 @@ export function usePersistentAppState() {
             ...current,
             answers,
             score,
-            result: computeResult(score),
-            screen: "result",
-            submissionId: current.submissionId || createSubmissionId(),
-            submissionStatus: "pending",
+            screen: "contact",
           };
         });
       },

@@ -1,18 +1,18 @@
 import type { ResultId } from "../types";
 
 export const resultThresholds = {
-  r3Max: 9,
-  r2Max: 19,
+  r1Max: 11,
+  r2Max: 21,
 } as const;
 
 export function computeResult(score: number): ResultId {
-  if (score <= resultThresholds.r3Max) {
-    return "R3";
+  if (score <= resultThresholds.r1Max) {
+    return "R1";
   }
 
   if (score <= resultThresholds.r2Max) {
     return "R2";
   }
 
-  return "R1";
+  return "R3";
 }

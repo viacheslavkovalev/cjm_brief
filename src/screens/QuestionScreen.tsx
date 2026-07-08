@@ -26,24 +26,24 @@ export function QuestionScreen({ question, index, selectedOptionId, onAnswer }: 
   return (
     <ScreenShell>
       <section className="flex flex-1 flex-col">
-        <PageTitle className="mt-6 md:mt-8" />
+        <PageTitle className="mt-8 md:mt-12" />
 
-        <div className="mt-10 md:mt-12">
+        <div className="mt-8 md:mt-10">
           <div
-            className={`rounded-[14px] bg-white px-5 py-6 text-figmaBg md:px-12 md:py-10 ${
-              index === 0 ? "min-h-[520px] md:min-h-[420px]" : ""
-            }`}
+            className="rounded-xl bg-white px-5 py-6 text-ink shadow-soft md:px-10 md:py-8"
           >
             <ProgressBar value={progress} />
-            <p className="mt-6 font-travels text-[18px] leading-[1.2] text-figmaBg/65">
-              Вопрос {index + 1}/{totalQuestions}
+            <p className="mt-6 font-travels text-[18px] leading-[1.2] text-ink/65">
+              Вопрос {index + 1}\{totalQuestions}
             </p>
-            <h2 className="mt-2 font-travelsNext text-[28px] font-bold leading-none md:text-[32px]">
+            <p className="mt-4 font-travels text-[20px] font-bold leading-[1.2] text-accent">{question.stage}</p>
+            <p className="mt-1 font-travels text-[16px] leading-[1.2] text-ink/55">{question.subtitle}</p>
+            <h2 className="mt-5 font-travelsNext text-[28px] font-bold leading-none md:text-[32px]">
               {question.title}
             </h2>
 
             {question.items ? (
-              <ul className="mt-5 grid gap-2 font-travels text-base leading-[1.25] text-figmaBg/80">
+              <ul className="mt-5 grid gap-2 font-travels text-base leading-[1.25] text-ink/80">
                 {question.items.map((item) => (
                   <li className="flex gap-2" key={item}>
                     <span aria-hidden="true">•</span>

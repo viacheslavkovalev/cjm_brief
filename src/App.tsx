@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { maxScore, questions } from "./data/quiz";
 import { results } from "./data/results";
 import { usePersistentAppState } from "./hooks/usePersistentAppState";
-import { EmailScreen } from "./screens/EmailScreen";
+import { ContactScreen } from "./screens/ContactScreen";
 import { IntroScreen } from "./screens/IntroScreen";
 import { QuestionScreen } from "./screens/QuestionScreen";
 import { ResultScreen } from "./screens/ResultScreen";
@@ -17,7 +17,7 @@ export function App() {
   const latestRevision = useRef(-1);
 
   useEffect(() => {
-    if (!state.company || !state.phone || !state.email || !state.submissionId) {
+    if (!state.name || !state.company || !state.position || !state.phone || !state.result || !state.submissionId) {
       return;
     }
 
@@ -59,8 +59,9 @@ export function App() {
     actions,
     state.answers,
     state.company,
-    state.email,
+    state.name,
     state.phone,
+    state.position,
     state.result,
     state.score,
     state.submissionId,
@@ -71,13 +72,14 @@ export function App() {
     return <IntroScreen onStart={actions.start} />;
   }
 
-  if (state.screen === "email") {
+  if (state.screen === "contact") {
     return (
-      <EmailScreen
+      <ContactScreen
+        initialName={state.name}
         initialCompany={state.company}
+        initialPosition={state.position}
         initialPhone={state.phone}
-        initialEmail={state.email}
-        onSubmit={actions.submitEmail}
+        onSubmit={actions.submitContact}
       />
     );
   }

@@ -9,9 +9,10 @@ type SubmissionPayload = {
   submissionId: string;
   revision: number;
   status: "started" | "in_progress" | "completed";
+  name: string;
   company: string;
+  position: string;
   phone: string;
-  email: string;
   score: number;
   result: string;
   answers: Array<{
@@ -30,9 +31,10 @@ function buildPayload(state: AppState): SubmissionPayload {
     submissionId: state.submissionId,
     revision,
     status: state.result ? "completed" : revision > 0 ? "in_progress" : "started",
+    name: state.name,
     company: state.company,
+    position: state.position,
     phone: state.phone,
-    email: state.email,
     score: state.score,
     result: state.result ?? "",
     answers: questions.map((question) => {

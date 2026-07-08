@@ -1,11 +1,12 @@
 const SPREADSHEET_ID = "1Q3v90Uis-3RahljvOx56Faa19IzlK4FatlMVfEiZszY";
 const SHEET_GID = 0;
-const QUESTION_COUNT = 13;
-const SERVICE_VERSION = "progressive-v3";
+const QUESTION_COUNT = 10;
+const SERVICE_VERSION = "cjm-v1";
 const HEADERS = [
+  "Имя, фамилия",
   "Компания",
+  "Должность",
   "Телефон",
-  "email",
   ...Array.from({ length: QUESTION_COUNT }, (_, index) => `Вопрос ${index + 1}`),
   "Статус",
   "Прогресс",
@@ -17,14 +18,14 @@ const HEADERS = [
   "revision",
 ];
 const COLUMN = {
-  status: QUESTION_COUNT + 4,
-  progress: QUESTION_COUNT + 5,
-  score: QUESTION_COUNT + 6,
-  result: QUESTION_COUNT + 7,
-  createdAt: QUESTION_COUNT + 8,
-  updatedAt: QUESTION_COUNT + 9,
-  submissionId: QUESTION_COUNT + 10,
-  revision: QUESTION_COUNT + 11,
+  status: QUESTION_COUNT + 5,
+  progress: QUESTION_COUNT + 6,
+  score: QUESTION_COUNT + 7,
+  result: QUESTION_COUNT + 8,
+  createdAt: QUESTION_COUNT + 9,
+  updatedAt: QUESTION_COUNT + 10,
+  submissionId: QUESTION_COUNT + 11,
+  revision: QUESTION_COUNT + 12,
 };
 
 function doGet(event) {
@@ -50,7 +51,7 @@ function doGet(event) {
     );
   }
 
-  return jsonResponse({ ok: true, service: "brief-sales", version: SERVICE_VERSION });
+  return jsonResponse({ ok: true, service: "cjm-lead-magnet", version: SERVICE_VERSION });
 }
 
 function doPost(event) {
@@ -80,9 +81,10 @@ function doPost(event) {
         ? sheet.getRange(rowNumber, COLUMN.createdAt).getValue() || now
         : now;
       const row = [
+        protectCell(payload.name),
         protectCell(payload.company),
+        protectCell(payload.position),
         protectCell(payload.phone),
-        protectCell(payload.email),
         ...payload.answers.map((answer) => protectCell(answer.answer)),
         payload.status,
         `${payload.revision}/${QUESTION_COUNT}`,
@@ -147,14 +149,19 @@ function validatePayload(payload) {
     throw new Error("Invalid submissionId");
   }
 
-  const email = String(payload.email || "").trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
-    throw new Error("Invalid email");
+  const name = String(payload.name || "").trim();
+  if (name.length < 2 || name.length > 200) {
+    throw new Error("Invalid name");
   }
 
   const company = String(payload.company || "").trim();
   if (company.length < 2 || company.length > 200) {
     throw new Error("Invalid company");
+  }
+
+  const position = String(payload.position || "").trim();
+  if (position.length < 2 || position.length > 200) {
+    throw new Error("Invalid position");
   }
 
   const phone = String(payload.phone || "").trim();
@@ -170,7 +177,7 @@ function validatePayload(payload) {
     throw new Error("Invalid status");
   }
 
-  if (!Number.isFinite(payload.score) || payload.score < 0 || payload.score > 26) {
+  if (!Number.isFinite(payload.score) || payload.score < 0 || payload.score > 30) {
     throw new Error("Invalid score");
   }
 
@@ -182,9 +189,10 @@ function validatePayload(payload) {
     throw new Error(`Expected ${QUESTION_COUNT} answers`);
   }
 
+  payload.name = name;
   payload.company = company;
+  payload.position = position;
   payload.phone = phone;
-  payload.email = email;
   let answeredCount = 0;
 
   payload.answers.forEach((answer, index) => {
