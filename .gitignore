@@ -15,3 +15,5 @@ __MACOSX
 node_modules/
 dist/
 .env
+
+AGENTS.md
