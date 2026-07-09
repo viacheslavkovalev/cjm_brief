@@ -80,7 +80,7 @@ export function ContactScreen({
               target="_blank"
               rel="noreferrer"
             >
-              согласия на обработку персональных данных
+              согласие на обработку персональных данных
             </a>
           </label>
         </section>

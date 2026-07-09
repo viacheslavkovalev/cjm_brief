@@ -28,7 +28,7 @@ export function IntroScreen({ onStart }: IntroScreenProps) {
           </p>
         </div>
 
-        <Button className="mt-4 w-full max-w-[640px]" type="button" onClick={onStart}>
+        <Button className="mt-10 w-full max-w-[640px] md:mt-12" type="button" onClick={onStart}>
           Пройдите, чтобы узнать свой результат
         </Button>
       </section>
