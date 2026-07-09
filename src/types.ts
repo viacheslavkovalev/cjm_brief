@@ -15,7 +15,6 @@ export type Option = {
 export type Question = {
   id: QuestionId;
   stage: string;
-  subtitle: string;
   title: string;
   items?: string[];
   options: Option[];
@@ -28,7 +27,7 @@ export type Result = {
   diagnosis: string;
   losses: string;
   action: string;
-  ctaBody: string;
+  ctaBody: string[];
   ctaText: string;
 };
 

@@ -12,7 +12,7 @@ export function IntroScreen({ onStart }: IntroScreenProps) {
       <section className="flex flex-1 flex-col items-center">
         <PageTitle className="mt-10 md:mt-14" />
 
-        <div className="mt-8 w-full max-w-[640px] space-y-5 rounded-xl bg-white px-5 py-6 text-left font-travels text-[18px] leading-[1.25] text-ink shadow-soft md:px-8 md:py-8">
+        <div className="mt-8 w-full max-w-[640px] space-y-5 text-left font-travels text-[18px] leading-[1.25] text-ink">
           <p className="text-center font-bold text-accent">Сезон почти закончился — подводим итоги</p>
           <p>
             Целых три месяца мы вместе собирали путь покупателя: прошли все этапы от латентного спроса до
@@ -28,9 +28,8 @@ export function IntroScreen({ onStart }: IntroScreenProps) {
           </p>
         </div>
 
-        <p className="mt-8 font-travels text-[18px] font-medium text-ink">Пройдите, чтобы узнать свой результат ↓</p>
         <Button className="mt-4 w-full max-w-[640px]" type="button" onClick={onStart}>
-          Пройти тест — 5 минут
+          Пройдите, чтобы узнать свой результат
         </Button>
       </section>
     </ScreenShell>

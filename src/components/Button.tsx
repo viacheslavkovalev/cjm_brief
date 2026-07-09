@@ -9,10 +9,10 @@ type ButtonProps = PropsWithChildren<
 export function Button({ children, className = "", variant = "primary", ...props }: ButtonProps) {
   const variantClass =
     variant === "darkCta"
-      ? "min-h-[52px] rounded bg-blueCta px-6 py-4 text-white hover:bg-blueCta/90 focus:ring-2 focus:ring-blueCta/40 focus:ring-offset-2 focus:ring-offset-white"
+      ? "min-h-[52px] rounded bg-accent px-6 py-4 text-white hover:bg-accent/90 focus:ring-2 focus:ring-accent/40 focus:ring-offset-2 focus:ring-offset-white"
       : variant === "darkLink"
         ? "min-h-0 rounded-none bg-transparent px-0 py-0 text-blueCta underline underline-offset-4 hover:bg-transparent hover:text-blueCta/80 focus:ring-2 focus:ring-blueCta/40 focus:ring-offset-2 focus:ring-offset-white"
-        : "min-h-[52px] rounded bg-blueCta px-8 py-4 text-white hover:bg-blueCta/90 focus:ring-2 focus:ring-blueCta/40 focus:ring-offset-2 focus:ring-offset-page";
+        : "min-h-[52px] rounded bg-accent px-8 py-4 text-white hover:bg-accent/90 focus:ring-2 focus:ring-accent/40 focus:ring-offset-2 focus:ring-offset-page";
 
   return (
     <button

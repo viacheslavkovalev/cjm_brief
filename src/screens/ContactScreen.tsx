@@ -60,10 +60,10 @@ export function ContactScreen({
           </p>
 
           <div className="mt-7 grid gap-5">
-            <TextField label="Имя, фамилия" value={name} placeholder="Саша Сучков" onChange={setName} />
-            <TextField label="Компания" value={company} placeholder="Бюро Сучкова" onChange={setCompany} />
-            <TextField label="Должность" value={position} placeholder="CEO" onChange={setPosition} />
-            <TextField label="Телефон" value={phone} placeholder="8-800-000-00-00" type="tel" onChange={setPhone} />
+            <TextField label="Имя, фамилия" value={name} onChange={setName} />
+            <TextField label="Компания" value={company} onChange={setCompany} />
+            <TextField label="Должность" value={position} onChange={setPosition} />
+            <TextField label="Телефон" value={phone} type="tel" onChange={setPhone} />
           </div>
 
           <label className="mt-6 flex cursor-pointer items-start gap-3 font-travels text-sm leading-[1.25] text-ink/70">
@@ -74,12 +74,19 @@ export function ContactScreen({
               onChange={(event) => setAccepted(event.target.checked)}
               required
             />
-            <span>Согласен на обработку персональных данных</span>
+            <a
+              className="text-blueCta underline underline-offset-2"
+              href="https://bureausuchkov.com/documents/policy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              согласия на обработку персональных данных
+            </a>
           </label>
         </section>
 
         <Button className="mt-6 w-full max-w-[620px]" type="submit" disabled={!valid}>
-          Показать результат
+          перейти к результатам
         </Button>
       </form>
     </ScreenShell>
@@ -89,12 +96,11 @@ export function ContactScreen({
 type TextFieldProps = {
   label: string;
   value: string;
-  placeholder: string;
   type?: string;
   onChange: (value: string) => void;
 };
 
-function TextField({ label, value, placeholder, type = "text", onChange }: TextFieldProps) {
+function TextField({ label, value, type = "text", onChange }: TextFieldProps) {
   const id = label.toLowerCase().replace(/\s+/g, "-");
 
   return (
@@ -105,7 +111,6 @@ function TextField({ label, value, placeholder, type = "text", onChange }: TextF
         id={id}
         type={type}
         inputMode={type === "tel" ? "tel" : undefined}
-        placeholder={placeholder}
         required
         value={value}
         onChange={(event) => onChange(event.target.value)}

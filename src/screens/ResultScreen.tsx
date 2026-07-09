@@ -12,7 +12,7 @@ type ResultScreenProps = {
   maxScore: number;
 };
 
-export function ResultScreen({ result, score, maxScore }: ResultScreenProps) {
+export function ResultScreen({ result }: ResultScreenProps) {
   const [showCta, setShowCta] = useState(false);
 
   useEffect(() => {
@@ -23,22 +23,23 @@ export function ResultScreen({ result, score, maxScore }: ResultScreenProps) {
     return (
       <ScreenShell className="items-center text-center">
         <section className="flex flex-1 flex-col items-center justify-center py-10">
-          <div className="grid w-full max-w-[760px] gap-6 rounded-xl bg-white px-5 py-7 text-left text-ink shadow-soft md:grid-cols-[1fr_180px] md:px-9 md:py-9">
-            <div>
-              <h1 className="font-travelsNext text-[34px] font-bold uppercase leading-none md:text-[48px]">
-                Что с этим делать?
-              </h1>
-              <p className="mt-6 font-travels text-[24px] font-medium leading-[1.15] text-accent md:text-[32px]">
+          <div className="w-full max-w-[760px] rounded-xl bg-white px-5 py-7 text-left text-ink shadow-soft md:px-9 md:py-9">
+            <div className="grid gap-5 md:grid-cols-[132px_1fr] md:items-center">
+              <img
+                className="mx-auto size-[132px] rounded-full object-cover md:mx-0"
+                src={publicAsset("images/cjm_photo.png")}
+                alt=""
+                loading="lazy"
+              />
+              <p className="font-travels text-[21px] font-medium leading-[1.15] text-accent md:text-[26px]">
                 {result.action}
               </p>
-              <p className="mt-7 font-travels text-[18px] leading-[1.3] text-ink/75">{result.ctaBody}</p>
             </div>
-            <img
-              className="mx-auto aspect-[4/5] w-[150px] rounded-xl object-cover md:w-full"
-              src={publicAsset("images/cjm_photo.png")}
-              alt=""
-              loading="lazy"
-            />
+            <div className="mt-7 grid gap-5 font-travels text-[18px] leading-[1.3] text-ink/75">
+              {result.ctaBody.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
           </div>
 
           {ctaUrl ? (
@@ -49,7 +50,7 @@ export function ResultScreen({ result, score, maxScore }: ResultScreenProps) {
             </a>
           ) : (
             <Button className="mt-6 w-full max-w-[760px]" type="button" disabled>
-              Ссылка скоро появится
+              {result.ctaText}
             </Button>
           )}
         </section>
@@ -63,11 +64,10 @@ export function ResultScreen({ result, score, maxScore }: ResultScreenProps) {
         <PageTitle className="mt-8 md:mt-12" />
 
         <div className="mt-8 w-full max-w-[640px] rounded-xl bg-white px-5 py-7 text-ink shadow-soft md:px-9 md:py-9">
-          <p className="font-travels text-[18px] leading-[1.2] text-ink/65">Ваш результат:</p>
-          <p className="mt-1 font-travelsNext text-[32px] font-bold uppercase leading-none text-accent md:text-[48px]">
-            {score} из {maxScore}
-          </p>
-          <p className="mt-2 font-travels text-[18px] leading-[1.2] text-ink/65">{result.range}</p>
+          <div className="flex items-baseline justify-between gap-4 font-travels text-[20px] font-bold leading-[1.2] text-accent md:text-[24px]">
+            <p className="text-left">Ваш результат:</p>
+            <p className="text-right uppercase">{result.range}</p>
+          </div>
 
           <h1 className="mt-8 font-travelsNext text-[32px] font-bold uppercase leading-none md:text-[48px]">
             {result.title}

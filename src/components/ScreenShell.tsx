@@ -10,7 +10,7 @@ export function ScreenShell({ children, className = "" }: ScreenShellProps) {
   return (
     <main className="relative min-h-screen overflow-hidden bg-page px-5 py-6 text-ink md:px-10 md:py-8">
       <img
-        className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-full w-full max-w-[1263px] object-cover opacity-20"
+        className="pointer-events-none absolute left-1/2 top-[260px] w-[780px] max-w-none -translate-x-1/2 opacity-20 md:top-[300px] md:w-[920px]"
         src={publicAsset("images/cjm_background.png")}
         alt=""
         aria-hidden="true"

@@ -17,6 +17,7 @@ type QuestionScreenProps = {
 export function QuestionScreen({ question, index, selectedOptionId, onAnswer }: QuestionScreenProps) {
   const [draftOptionId, setDraftOptionId] = useState(selectedOptionId ?? "");
   const progress = ((index + 1) / totalQuestions) * 100;
+  const stageTitle = question.stage.replace(/^Этап\s+\d+\.\s*/, "");
 
   useEffect(() => {
     setDraftOptionId(selectedOptionId ?? "");
@@ -33,11 +34,10 @@ export function QuestionScreen({ question, index, selectedOptionId, onAnswer }: 
             className="rounded-xl bg-white px-5 py-6 text-ink shadow-soft md:px-10 md:py-8"
           >
             <ProgressBar value={progress} />
-            <p className="mt-6 font-travels text-[18px] leading-[1.2] text-ink/65">
-              Вопрос {index + 1}\{totalQuestions}
-            </p>
-            <p className="mt-4 font-travels text-[20px] font-bold leading-[1.2] text-accent">{question.stage}</p>
-            <p className="mt-1 font-travels text-[16px] leading-[1.2] text-ink/55">{question.subtitle}</p>
+            <div className="mt-6 flex items-baseline justify-between gap-4 font-travels text-[20px] font-bold leading-[1.2] text-accent">
+              <p className="text-left">Вопрос {index + 1}\{totalQuestions}</p>
+              <p className="text-right">{stageTitle}</p>
+            </div>
             <h2 className="mt-5 font-travelsNext text-[28px] font-bold leading-none md:text-[32px]">
               {question.title}
             </h2>
