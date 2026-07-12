@@ -1,6 +1,7 @@
 import type { Result } from "../types";
 
-export const ctaUrl = import.meta.env.VITE_CJM_CTA_URL?.trim() ?? "";
+export const ctaUrl =
+  import.meta.env.VITE_CJM_CTA_URL?.trim() || "https://t.me/bureausuchkov_bot?start=dorojkarta";
 
 const ctaText = "Узнать подробнее";
 const ctaBody = [

@@ -19,7 +19,7 @@ npm run dev
 
 ```env
 VITE_GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/DEPLOYMENT_ID/exec
-VITE_CJM_CTA_URL=https://t.me/bureausuchkov_bot?start=...
+VITE_CJM_CTA_URL=https://t.me/bureausuchkov_bot?start=dorojkarta
 ```
 
 Основные команды:
