@@ -12,7 +12,7 @@ type ResultScreenProps = {
   maxScore: number;
 };
 
-export function ResultScreen({ result }: ResultScreenProps) {
+export function ResultScreen({ result, score }: ResultScreenProps) {
   const [showCta, setShowCta] = useState(false);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export function ResultScreen({ result }: ResultScreenProps) {
         <div className="mt-8 w-full max-w-[640px] rounded-xl bg-white px-5 py-7 text-ink shadow-soft md:px-9 md:py-9">
           <div className="flex items-baseline justify-between gap-4 font-travels text-[20px] font-bold leading-[1.2] text-accent md:text-[24px]">
             <p className="text-left">Ваш результат:</p>
-            <p className="text-right uppercase">{result.range}</p>
+            <p className="text-right uppercase">{score} БАЛЛОВ</p>
           </div>
 
           <h1 className="mt-8 font-travelsNext text-[32px] font-bold uppercase leading-none md:text-[48px]">
